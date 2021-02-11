@@ -1,0 +1,8 @@
+<ng-container *ngIf="balance">
+  <div class="my-4 fw-bold d-flex justify-content-between">
+    <div>Opening Balance is Rs. {{ balance.openingBalance }}</div>
+    <div *ngIf="closingBalance">
+      Closing Balance is Rs. {{ closingBalance }}
+    </div>
+  </div>
+</ng-container>

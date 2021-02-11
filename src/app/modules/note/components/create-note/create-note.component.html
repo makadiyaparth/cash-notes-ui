@@ -1,0 +1,69 @@
+<h1 class="text-center">Add Entry</h1>
+<div class="container">
+  <form [formGroup]="form">
+    <div class="row mt-5">
+      <label class="form-label">Amount</label>
+      <input
+        type="number"
+        class="form-control"
+        formControlName="amount"
+        placeholder="Enter amount here"
+      />
+    </div>
+    <div class="row mt-4">
+      <label class="form-label">Note</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="note"
+        placeholder="Enter note here"
+      />
+    </div>
+    <div class="row mt-4">
+      <label class="form-label">Date</label>
+      <input
+        type="date"
+        class="form-control"
+        formControlName="date"
+        placeholder="Select date here"
+      />
+    </div>
+    <div class="mt-4 btn-group">
+      <input
+        type="radio"
+        class="btn-check"
+        value="DEBIT"
+        id="debitradio"
+        formControlName="txnType"
+      />
+      <label class="btn btn-outline-primary" for="debitradio">Debit</label>
+
+      <input
+        type="radio"
+        class="btn-check"
+        value="CREDIT"
+        id="creditradio"
+        formControlName="txnType"
+      />
+      <label class="btn btn-outline-primary" for="creditradio">Credit</label>
+    </div>
+    <div class="row mt-5">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="save()"
+        *ngIf="!editMode"
+      >
+        Save
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="update()"
+        *ngIf="editMode"
+      >
+        Update
+      </button>
+    </div>
+  </form>
+</div>

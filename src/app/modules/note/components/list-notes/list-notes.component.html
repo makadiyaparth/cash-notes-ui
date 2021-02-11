@@ -1,0 +1,45 @@
+<table class="table table-hover mt-4">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Note</th>
+      <th scope="col">Type</th>
+      <th scope="col" class="text-center">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngIf="notes && notes.length > 0; else noRecord">
+      <tr *ngFor="let note of notes; let i = index">
+        <td class="col-2">{{ note.createdDate }}</td>
+        <td class="col-2 text-end pe-4">{{ note.amount }}</td>
+        <td class="col-4">{{ note.note }}</td>
+        <td
+          [ngClass]="{
+            'text-success': note.txnType === 'CREDIT',
+            'text-danger': note.txnType === 'DEBIT'
+          }"
+          class="col-2"
+        >
+          {{ note.txnType }}
+        </td>
+        <td class="col-2 text-center">
+          <button class="btn btn-primary btn-sm" (click)="onEdit(note)">
+            <i class="fa fa-pencil"></i>
+          </button>
+          <button
+            class="btn btn-danger btn-sm ms-2"
+            (click)="onDelete(note.id)"
+          >
+            <i class="fa fa-trash-o"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-container>
+    <ng-template #noRecord>
+      <tr>
+        <td colspan="5" class="text-center">No Record</td>
+      </tr>
+    </ng-template>
+  </tbody>
+</table>
