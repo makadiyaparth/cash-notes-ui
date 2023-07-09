@@ -42,7 +42,7 @@ export class CreateNoteComponent implements OnInit {
 
   update(): void {
     this.noteService
-      .update(`/${this.note.id}`, this.compileInDTO())
+      .update(`/${this.note._id}`, this.compileInDTO())
       .subscribe((_) => {
         this.initForm();
         this.noteData.changed();
@@ -67,8 +67,8 @@ export class CreateNoteComponent implements OnInit {
     this.form.patchValue({
       amount: this.note.amount,
       note: this.note.note,
-      date: this.note.createdDate,
-      txnType: this.note.txnType,
+      date: this.note.date.split('T')[0],
+      txnType: this.note.type,
     });
   }
 
@@ -77,8 +77,8 @@ export class CreateNoteComponent implements OnInit {
     return {
       amount: form.amount.value,
       note: form.note.value,
-      createdDate: form.date.value,
-      txnType: form.txnType.value,
+      date: form.date.value,
+      type: form.txnType.value,
     };
   }
 }
