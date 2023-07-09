@@ -1,9 +1,9 @@
 import { TransactionType } from '../enums/transaction-type.enum';
 
 export interface NoteDTO {
-  id: number;
+  _id: number;
   note: string;
-  createdDate: string;
+  date: string;
   amount: number;
-  txnType: TransactionType;
+  type: TransactionType;
 }

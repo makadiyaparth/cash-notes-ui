@@ -11,17 +11,17 @@
   <tbody>
     <ng-container *ngIf="notes && notes.length > 0; else noRecord">
       <tr *ngFor="let note of notes; let i = index">
-        <td class="col-2">{{ note.createdDate }}</td>
+        <td class="col-2">{{ note.date.split("T")[0] }}</td>
         <td class="col-2 text-end pe-4">{{ note.amount }}</td>
         <td class="col-4">{{ note.note }}</td>
         <td
           [ngClass]="{
-            'text-success': note.txnType === 'CREDIT',
-            'text-danger': note.txnType === 'DEBIT'
+            'text-success': note.type === 'credit',
+            'text-danger': note.type === 'debit'
           }"
           class="col-2"
         >
-          {{ note.txnType }}
+          {{ note.type }}
         </td>
         <td class="col-2 text-center">
           <button class="btn btn-primary btn-sm" (click)="onEdit(note)">
@@ -29,7 +29,7 @@
           </button>
           <button
             class="btn btn-danger btn-sm ms-2"
-            (click)="onDelete(note.id)"
+            (click)="onDelete(note._id)"
           >
             <i class="fa fa-trash-o"></i>
           </button>

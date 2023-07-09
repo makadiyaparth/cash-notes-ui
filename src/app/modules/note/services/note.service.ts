@@ -10,7 +10,7 @@ import { TransactionType } from '../enums/transaction-type.enum';
   providedIn: 'root',
 })
 export class NoteService {
-  private readonly serviceBasePath = '/notes';
+  private readonly serviceBasePath = '/records';
 
   constructor(private api: ApiService) {}
 
@@ -40,12 +40,12 @@ export class NoteService {
 
   getTotal(notes: NoteDTO[]): number {
     const creditAmt = notes
-      .filter((note) => note.txnType === TransactionType.CREDIT)
+      .filter((note) => note.type === TransactionType.CREDIT)
       .map((note) => note.amount)
       .reduce((a, b) => a + b, 0);
 
     const debitAmt = notes
-      .filter((note) => note.txnType === TransactionType.DEBIT)
+      .filter((note) => note.type === TransactionType.DEBIT)
       .map((note) => note.amount)
       .reduce((a, b) => a + b, 0);
 
