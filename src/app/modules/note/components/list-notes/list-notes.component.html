@@ -1,45 +1,83 @@
-<table class="table table-hover mt-4">
-  <thead>
-    <tr>
-      <th scope="col">Date</th>
-      <th scope="col">Amount</th>
-      <th scope="col">Note</th>
-      <th scope="col">Type</th>
-      <th scope="col" class="text-center">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <ng-container *ngIf="notes && notes.length > 0; else noRecord">
-      <tr *ngFor="let note of notes; let i = index">
-        <td class="col-2">{{ note.date.split("T")[0] }}</td>
-        <td class="col-2 text-end pe-4">{{ note.amount }}</td>
-        <td class="col-4">{{ note.note }}</td>
-        <td
-          [ngClass]="{
-            'text-success': note.type === 'credit',
-            'text-danger': note.type === 'debit'
-          }"
-          class="col-2"
-        >
-          {{ note.type }}
-        </td>
-        <td class="col-2 text-center">
-          <button class="btn btn-primary btn-sm" (click)="onEdit(note)">
-            <i class="fa fa-pencil"></i>
-          </button>
-          <button
-            class="btn btn-danger btn-sm ms-2"
-            (click)="onDelete(note._id)"
-          >
-            <i class="fa fa-trash-o"></i>
-          </button>
-        </td>
-      </tr>
-    </ng-container>
-    <ng-template #noRecord>
+<div class="d-flex gap-4">
+  <!-- Credit Notes -->
+  <table class="table table-hover caption-top mt-4">
+    <caption>
+      Credit
+    </caption>
+    <thead>
       <tr>
-        <td colspan="5" class="text-center">No Record</td>
+        <th scope="col">Date</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Note</th>
+        <th scope="col" class="text-center">Action</th>
       </tr>
-    </ng-template>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <ng-container
+        *ngIf="creditNotes && creditNotes.length > 0; else noRecord"
+      >
+        <tr *ngFor="let note of creditNotes; let i = index">
+          <td class="col-3">{{ note.date.split("T")[0] }}</td>
+          <td class="col-2 text-end pe-4">{{ note.amount }}</td>
+          <td class="col-4">{{ note.note }}</td>
+          <td class="col-3 text-center">
+            <button class="btn btn-primary btn-sm" (click)="onEdit(note)">
+              <i class="fa fa-pencil"></i>
+            </button>
+            <button
+              class="btn btn-danger btn-sm ms-2"
+              (click)="onDelete(note._id)"
+            >
+              <i class="fa fa-trash-o"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+      <ng-template #noRecord>
+        <tr>
+          <td colspan="4" class="text-center">No Record</td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+
+  <!-- Debit Notes -->
+  <table class="table table-hover caption-top mt-4">
+    <caption>
+      Debit
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Note</th>
+        <th scope="col" class="text-center">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="notes && debitNotes.length > 0; else noRecord">
+        <tr *ngFor="let note of debitNotes; let i = index">
+          <td class="col-3">{{ note.date.split("T")[0] }}</td>
+          <td class="col-2 text-end pe-4">{{ note.amount }}</td>
+          <td class="col-4">{{ note.note }}</td>
+          <td class="col-3 text-center">
+            <button class="btn btn-primary btn-sm" (click)="onEdit(note)">
+              <i class="fa fa-pencil"></i>
+            </button>
+            <button
+              class="btn btn-danger btn-sm ms-2"
+              (click)="onDelete(note._id)"
+            >
+              <i class="fa fa-trash-o"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+      <ng-template #noRecord>
+        <tr>
+          <td colspan="4" class="text-center">No Record</td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+</div>
