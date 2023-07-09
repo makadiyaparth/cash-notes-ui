@@ -4,6 +4,7 @@ import { getDate } from 'src/app/common/util';
 import { NoteDTO } from '../../dtos/note-dto';
 import { NoteDataService } from '../../services/note-data.service';
 import { NoteService } from '../../services/note.service';
+import { TransactionType } from '../../enums/transaction-type.enum';
 
 @Component({
   selector: 'app-list-notes',
@@ -11,6 +12,8 @@ import { NoteService } from '../../services/note.service';
 })
 export class ListNotesComponent implements OnInit {
   notes: NoteDTO[];
+  creditNotes: NoteDTO[];
+  debitNotes: NoteDTO[];
 
   fromDate: string;
   toDate: string;
@@ -47,7 +50,13 @@ export class ListNotesComponent implements OnInit {
       .findAll(this.fromDate, this.toDate)
       .subscribe((notes: NoteDTO[]) => {
         this.notes = notes;
+        this.creditNotes = this.getNotesByType(TransactionType.CREDIT);
+        this.debitNotes = this.getNotesByType(TransactionType.DEBIT);
         this.noteData.total(this.noteService.getTotal(notes));
       });
+  }
+
+  private getNotesByType(type: TransactionType): NoteDTO[] {
+    return this.notes.filter((note) => note.type === type);
   }
 }
