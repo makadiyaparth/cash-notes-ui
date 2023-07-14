@@ -9,8 +9,7 @@ import { NoteService } from '../../services/note.service';
   templateUrl: './filter-notes.component.html',
 })
 export class FilterNotesComponent implements OnInit {
-  fromDate;
-  toDate;
+  date;
   today = getDate();
 
   constructor(
@@ -20,13 +19,12 @@ export class FilterNotesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.fromDate = this.route.snapshot.queryParams.fromDate || this.today;
-    this.toDate = this.route.snapshot.queryParams.toDate || this.today;
+    this.date = this.route.snapshot.queryParams.date || this.today;
   }
 
   onFilter(): void {
     this.router.navigate(['/notes'], {
-      queryParams: { fromDate: this.fromDate, toDate: this.toDate },
+      queryParams: { date: this.date },
     });
   }
 
@@ -37,12 +35,12 @@ export class FilterNotesComponent implements OnInit {
   }
 
   exportRange(): void {
-    this.noteService.export(this.fromDate, this.toDate).subscribe((pdf) => {
+    this.noteService.export(this.date).subscribe((pdf) => {
       saveAs(pdf, this.getFileName());
     });
   }
 
   private getFileName(): string {
-    return `cash_notes_${this.fromDate}_${this.toDate}.pdf`;
+    return `cash_notes_${this.date}.pdf`;
   }
 }
