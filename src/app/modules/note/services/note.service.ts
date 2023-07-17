@@ -51,4 +51,9 @@ export class NoteService {
 
     return creditAmt - debitAmt;
   }
+
+  findAllByDate(date: string = getDate()): Observable<NoteDTO[]> {
+    return this.api.get(this.serviceBasePath, { date });
+  }
+
 }

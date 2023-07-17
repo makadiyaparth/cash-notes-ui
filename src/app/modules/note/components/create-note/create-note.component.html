@@ -64,6 +64,14 @@
       >
         Update
       </button>
+      <button
+        type="button"
+        class="btn"
+        (click)="cancel()"
+        *ngIf="editMode"
+      >
+        Cancel
+      </button>
     </div>
   </form>
 </div>

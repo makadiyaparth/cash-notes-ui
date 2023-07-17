@@ -21,12 +21,13 @@
           <td class="col-2 text-end pe-4">{{ note.amount }}</td>
           <td class="col-4">{{ note.note }}</td>
           <td class="col-3 text-center">
-            <button class="btn btn-primary btn-sm" (click)="onEdit(note)">
+            <button class="btn btn-primary btn-sm" (click)="onEdit(note)" [disabled]="editMode">
               <i class="fa fa-pencil"></i>
             </button>
             <button
               class="btn btn-danger btn-sm ms-2"
               (click)="onDelete(note._id)"
+              [disabled]="editMode"
             >
               <i class="fa fa-trash-o"></i>
             </button>
@@ -61,12 +62,13 @@
           <td class="col-2 text-end pe-4">{{ note.amount }}</td>
           <td class="col-4">{{ note.note }}</td>
           <td class="col-3 text-center">
-            <button class="btn btn-primary btn-sm" (click)="onEdit(note)">
+            <button class="btn btn-primary btn-sm" (click)="onEdit(note)" [disabled]="editMode">
               <i class="fa fa-pencil"></i>
             </button>
             <button
               class="btn btn-danger btn-sm ms-2"
               (click)="onDelete(note._id)"
+              [disabled]="editMode"
             >
               <i class="fa fa-trash-o"></i>
             </button>

@@ -1,46 +1,15 @@
 <form class="form-horizontal">
   <div class="row">
     <div class="col-3">
-      <label class="col-form-label-sm">From Date</label>
+      <label class="col-form-label-sm">Select Date</label>
       <input
         type="date"
-        name="fromDate"
-        [(ngModel)]="fromDate"
-        (ngModelChange)="onFilter()"
-        [max]="toDate"
-        class="form-control form-control-sm"
-      />
-    </div>
-    <div class="col-3">
-      <label class="col-form-label-sm">To Date</label>
-      <input
-        type="date"
-        name="toDate"
-        [(ngModel)]="toDate"
-        (ngModelChange)="onFilter()"
-        [min]="fromDate"
+        name="selectedDate"
         [max]="today"
+        [(ngModel)]="date"
+        (ngModelChange)="onFilter()"
         class="form-control form-control-sm"
       />
-    </div>
-    <div class="col-6 text-end">
-      <label class="col-form-label-sm">Export PDF</label>
-      <div>
-        <button
-          type="button"
-          class="btn btn-primary btn-sm me-2"
-          (click)="exportToday()"
-        >
-          Today
-        </button>
-        <button
-          type="button"
-          class="btn btn-primary btn-sm"
-          (click)="exportRange()"
-        >
-          Range
-        </button>
-      </div>
     </div>
   </div>
 </form>

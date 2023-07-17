@@ -15,8 +15,8 @@ export class ListNotesComponent implements OnInit {
   creditNotes: NoteDTO[];
   debitNotes: NoteDTO[];
 
-  fromDate: string;
-  toDate: string;
+  date: string;
+  editMode: boolean;
 
   constructor(
     private noteService: NoteService,
@@ -31,6 +31,7 @@ export class ListNotesComponent implements OnInit {
 
   onEdit(note: NoteDTO): void {
     this.noteData.edit(note);
+    this.editMode = true;
   }
 
   onDelete(id: number): void {
@@ -39,15 +40,15 @@ export class ListNotesComponent implements OnInit {
 
   private subscribeQueryParams(): void {
     this.route.queryParams.subscribe((params) => {
-      this.fromDate = params['fromDate'] || getDate();
-      this.toDate = params['toDate'] || getDate();
+      this.date = params['date'] || getDate();
       this.findAll();
     });
   }
 
   private findAll(): void {
+    this.editMode = false;
     this.noteService
-      .findAll(this.fromDate, this.toDate)
+      .findAllByDate(this.date)
       .subscribe((notes: NoteDTO[]) => {
         this.notes = notes;
         this.creditNotes = this.getNotesByType(TransactionType.CREDIT);
