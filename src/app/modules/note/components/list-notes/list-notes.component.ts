@@ -16,6 +16,7 @@ export class ListNotesComponent implements OnInit {
   debitNotes: NoteDTO[];
 
   date: string;
+  editMode: boolean;
 
   constructor(
     private noteService: NoteService,
@@ -30,6 +31,7 @@ export class ListNotesComponent implements OnInit {
 
   onEdit(note: NoteDTO): void {
     this.noteData.edit(note);
+    this.editMode = true;
   }
 
   onDelete(id: number): void {
@@ -44,6 +46,7 @@ export class ListNotesComponent implements OnInit {
   }
 
   private findAll(): void {
+    this.editMode = false;
     this.noteService
       .findAllByDate(this.date)
       .subscribe((notes: NoteDTO[]) => {

@@ -50,6 +50,12 @@ export class CreateNoteComponent implements OnInit {
       });
   }
 
+  cancel(): void {
+    this.initForm();
+    this.editMode = false;
+    this.noteData.changed();
+  }
+
   private initForm(): void {
     this.route.queryParams.subscribe((params) => {
       const date = params.date;
