@@ -14,6 +14,8 @@ import { NoteDataService } from '../../services/note-data.service';
 })
 export class CreateNoteComponent implements OnInit {
   form: FormGroup;
+  result: number = 0;
+  notes: NoteDTO[] = [];
 
   note: NoteDTO;
   editMode = false;
@@ -31,12 +33,15 @@ export class CreateNoteComponent implements OnInit {
       this.note = note;
       note && this.patchForm();
     });
+
+    this.fetchNotes();
   }
 
   save(): void {
     this.noteService.save('', this.compileInDTO()).subscribe((_) => {
       this.initForm();
       this.noteData.changed();
+      this.fetchNotes();
     });
   }
 
@@ -47,6 +52,7 @@ export class CreateNoteComponent implements OnInit {
         this.initForm();
         this.noteData.changed();
         this.editMode = false;
+        this.fetchNotes();
       });
   }
 
@@ -54,6 +60,11 @@ export class CreateNoteComponent implements OnInit {
     this.initForm();
     this.editMode = false;
     this.noteData.changed();
+    this.fetchNotes();
+  }
+
+  onDateChange(): void {
+    this.fetchNotes();
   }
 
   private initForm(): void {
@@ -66,6 +77,7 @@ export class CreateNoteComponent implements OnInit {
         txnType: [TransactionType.DEBIT],
       });
     });
+    this.calculateResult();
   }
 
   private patchForm(): void {
@@ -76,6 +88,7 @@ export class CreateNoteComponent implements OnInit {
       date: this.note.date.split('T')[0],
       txnType: this.note.type,
     });
+    this.calculateResult();
   }
 
   private compileInDTO(): NoteInDTO {
@@ -87,4 +100,25 @@ export class CreateNoteComponent implements OnInit {
       type: form.txnType.value,
     };
   }
+
+  private fetchNotes(): void {
+    const date = this.form.controls.date.value;
+    this.noteService.findAllByDate(date).subscribe(
+      (notes: NoteDTO[]) => {
+        this.notes = notes;
+        this.calculateResult();
+      },
+      (error: any) => {
+        console.error(error);
+        this.notes = [];
+        this.calculateResult();
+      }
+    );
+  }
+
+  private calculateResult(): void {
+    const debitAmount = this.noteService.getDebitAmount(this.notes);
+    const creditAmount = this.noteService.getCreditAmount(this.notes);
+    this.result = creditAmount - debitAmount;
+  }  
 }

@@ -1,4 +1,3 @@
-import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { getDate } from 'src/app/common/util';
@@ -56,4 +55,17 @@ export class NoteService {
     return this.api.get(this.serviceBasePath, { date });
   }
 
+  getDebitAmount(notes: NoteDTO[]): number {
+    return notes
+      .filter((note) => note.type === TransactionType.DEBIT)
+      .map((note) => note.amount)
+      .reduce((a, b) => a + b, 0);
+  }
+
+  getCreditAmount(notes: NoteDTO[]): number {
+    return notes
+      .filter((note) => note.type === TransactionType.CREDIT)
+      .map((note) => note.amount)
+      .reduce((a, b) => a + b, 0);
+  }
 }

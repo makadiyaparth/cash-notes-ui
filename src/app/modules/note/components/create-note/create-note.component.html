@@ -26,6 +26,7 @@
         class="form-control"
         formControlName="date"
         placeholder="Select date here"
+        [max]="today"
       />
     </div>
     <div class="mt-4 btn-group">
@@ -72,6 +73,14 @@
       >
         Cancel
       </button>
+    </div>
+    <div class="row mt-5">
+      <div class="remaining-balance" style="font-size: 22px;">
+        Remaining Balance:
+        <span [ngStyle]="{ 'font-size': '22px', 'font-weight': '500', color: result < 0 ? 'red' : 'green' }">
+          {{ result }}
+        </span>
+      </div>
     </div>
   </form>
 </div>
